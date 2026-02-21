@@ -1,0 +1,43 @@
+{
+  "manifest_version": "state_manifest.v0.1",
+  "repo": {
+    "name": "travexis-glt",
+    "default_branch": "main"
+  },
+  "north_star": {
+    "statement": "P0 cash loop + delivery credit infrastructure",
+    "cash_priority": "profit-first",
+    "notes": [
+      "Strategic chat = no code by default (cognitive conservation).",
+      "Execution = single-thread, artifact-first, deterministic."
+    ]
+  },
+  "primary_thread": {
+    "current": "glt.v0.2.x hardening + WP intake spec (next)",
+    "next": "WP.v0.1 schema + minimal validator route (Go)",
+    "done_recent": [
+      "glt.v0.2.0 ledger profile shipped",
+      "release policy + immutable anchors (r-YYYYMMDD-HHMM) shipped"
+    ]
+  },
+  "darkline": {
+    "insights_pool": [
+      "Auto-Elevator",
+      "Fail-to-Gate Loop",
+      "Digest + Badge"
+    ],
+    "rule": "Insights are stored here and must not auto-expand into code without explicit execution intent."
+  },
+  "self_alignment": {
+    "north_star": "P0 cash loop + delivery credit infrastructure",
+    "last_check_utc": "2026-02-21T05:00:00Z",
+    "deviation_score": 0.0,
+    "deviation_reason": "v0.2.0 shipped; next focus is WP v0.1 intake spec",
+    "next_check_utc": "2026-02-28T05:00:00Z",
+    "notes": []
+  },
+  "release": {
+    "current_version_tag": "v0.2.0",
+    "last_anchor_tag": "r-20260221-1258"
+  }
+}
