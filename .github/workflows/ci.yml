@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
 
 jobs:
@@ -15,10 +15,16 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: "stable"
+          go-version-file: go.mod
+          cache: true
+          cache-dependency-path: |
+            **/go.sum
 
-      - name: Build validator
-        run: go build -o validator ./engine_go
+      - name: Go test
+        run: go test ./...
+
+      - name: Build validator (glt)
+        run: go build -o validator ./cmd/glt
 
       - name: Build runner
         run: go build -o runner ./runner_go
