@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  glt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "stable"
+
+      - name: Build validator
+        run: go build -o validator ./engine_go
+
+      - name: Build runner
+        run: go build -o runner ./runner_go
+
+      - name: Run test suite
+        run: ./runner ./validator ./tests
