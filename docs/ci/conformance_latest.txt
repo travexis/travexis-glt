@@ -1,0 +1,11 @@
+[PASS] blocked_usage_error exit=20
+[PASS] fail_case_id_format exit=10
+[PASS] fail_format exit=10
+[PASS] fail_missing_action exit=20
+[PASS] fail_missing_payload exit=20
+[PASS] fail_unknown_action exit=10
+[PASS] fail_unknown_profile exit=10
+[PASS] pass exit=0
+[PASS] pass_core_profile exit=0
+
+[SUMMARY] total=9 pass=9 fail=0
