@@ -1,3 +1,15 @@
 *.exe
+# local build artifacts
+*.exe
+validator
+runner
+
+# local scratch / accidental files
+.cmdglt
+.validator.exe
+
+# local logs
+out/runner_last.txt
+
 /runner.exe
 /validator.exe
