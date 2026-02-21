@@ -110,3 +110,53 @@ No time-dependent logic.
 No randomness.
 
 GLT validation MUST be deterministic.
+
+## Profiles (v0.2)
+
+`profile` is optional. If missing or empty, default is `core`.
+
+Allowed profiles:
+- `core`
+- `ledger`
+
+If `profile` is present but not allowed → exit **10 (FAIL)**.
+
+### Exit Codes (SSOT)
+- `0` = PASS
+- `10` = FAIL (invalid input / schema / unknown profile / disallowed action)
+- `20` = BLOCKED (deterministic policy violation)
+
+## Core Profile (core)
+
+Allowed `action`:
+- `validate`
+
+Required top-level fields:
+- `case_id` (string) must match `C-YYYYMMDD-###`
+- `action` (string)
+- `payload` (object)
+
+## Ledger Profile (ledger) — v0.1 Rules (introduced in v0.2)
+
+Ledger profile is for settlement / credit / billing validations.
+
+Allowed `action`:
+- `ledger_append`
+
+Required fields inside `payload`:
+- `ledger_seq` (int)
+- `prev_hash` (string)
+- `entry_type` (enum): `append` | `correction` | `snapshot`
+- `amount_usd` (number, must be >= 0) → negative is **BLOCKED (20)**
+- `cfu_impact` (number, must be >= 0) → negative is **BLOCKED (20)**
+- `responsible_party` (enum): `issuer` | `operator` | `holder`
+- `evidence_ref` (string)
+
+Deterministic chain context (required):
+- `ledger_head` (object) with:
+  - `ledger_seq` (int)
+  - `line_hash` (string)
+
+Chain constraints (hard BLOCKED):
+- `ledger_seq` must equal `ledger_head.ledger_seq + 1` → **exit 20**
+- `prev_hash` must equal `ledger_head.line_hash` → **exit 20**
