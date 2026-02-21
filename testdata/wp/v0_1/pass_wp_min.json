@@ -1,0 +1,11 @@
+{
+  "wp_id": "WP-20260221-001",
+  "ts_utc": "2026-02-21T05:30:00Z",
+  "source": "internal",
+  "claim": "Ledger profile: validate that amount_usd cannot be negative.",
+  "evidence_ref": "PP-20260221-EXAMPLE",
+  "thread": "natural",
+  "intent_northstar": "profit",
+  "cash_horizon": "H0",
+  "elevation_target": "gate_test"
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "wp.v0.1.schema.json",
+  "title": "WP v0.1 (Work Pack) - Intake Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["wp_id", "ts_utc", "source", "claim", "evidence_ref"],
+  "properties": {
+    "wp_id": {
+      "type": "string",
+      "pattern": "^WP-[0-9]{8}-[0-9]{3}$",
+      "description": "WP unique id, e.g. WP-20260221-001"
+    },
+    "ts_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["internal", "community", "partner", "model"]
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "scope": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Optional: which subsystem is affected"
+    },
+    "evidence_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Required: ProofSeal pack id / receipt id / link / trace id"
+    },
+    "artifact_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Optional but recommended"
+    },
+    "repro_steps": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 300 },
+      "maxItems": 12
+    },
+    "expected": { "type": "string", "maxLength": 500 },
+    "actual": { "type": "string", "maxLength": 500 },
+
+    "thread": {
+      "type": "string",
+      "enum": ["natural", "prime", "insight", "intent"],
+      "default": "natural",
+      "description": "Consciousness control plane tag"
+    },
+    "insight_anchor": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Optional: one-line insight (prime signal)."
+    },
+    "intent_northstar": {
+      "type": "string",
+      "enum": ["profit"],
+      "default": "profit"
+    },
+    "cash_horizon": {
+      "type": "string",
+      "enum": ["H0", "H1", "H2"],
+      "default": "H0"
+    },
+
+    "elevation_target": {
+      "type": "string",
+      "enum": ["failbank_case", "gate_test", "ledger_rule", "doc", "none"],
+      "default": "none"
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string", "maxLength": 300 },
+      "maxItems": 20
+    }
+  }
+}
