@@ -1,14 +1,37 @@
-# GLT Test Suite (v0.1.0)
+# GLT Test Suite (v0.1.x)
 
-Tests are located under `tests/`.
+This repository provides a deterministic test suite for GLT.](image.png)
+All tests live under:
 
-Each test case folder MUST contain:
-- `input.*` (e.g. input.json)
-- `expected_exit.txt` (single integer)
+Each test case is a directory. The directory name is the test id.
 
-Exit codes:
-- 0  PASS
-- 10 FAIL
-- 20 BLOCKED
+---
 
-The runner is the reference way to execute the suite.
+## 1. Test Case Contract
+
+Each test directory MUST contain:
+
+- `input.*`  
+  The input file passed to the validator (typically `input.json`).
+
+- `expected_exit.txt`  
+  A single integer representing the expected exit code.
+
+Exit codes (fixed):
+- `0`  PASS
+- `10` FAIL
+- `20` BLOCKED
+
+Stdout is informational only. Exit code is the source of truth.
+
+---
+
+## 2. How to Run
+
+### 2.1 Build and run locally (Windows)
+
+Build:
+
+```powershell
+go build -o validator.exe ./engine_go
+go build -o runner.exe ./runner_go
