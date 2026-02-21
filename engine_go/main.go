@@ -33,7 +33,6 @@ func main() {
 	if !ok {
 		os.Exit(20)
 	}
-
 	caseID, ok := rawCaseID.(string)
 	if !ok {
 		os.Exit(10)
@@ -67,6 +66,16 @@ func main() {
 	}
 	if strings.TrimSpace(action) == "" {
 		os.Exit(20)
+	}
+
+	// payload must exist and be an object → otherwise BLOCKED
+	rawPayload, ok := obj["payload"]
+	if !ok || rawPayload == nil {
+		os.Exit(20)
+	}
+	_, ok = rawPayload.(map[string]interface{})
+	if !ok {
+		os.Exit(10) // present but wrong type
 	}
 
 	// PASS
