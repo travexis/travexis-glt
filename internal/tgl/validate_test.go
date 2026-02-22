@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -20,6 +21,15 @@ func mustReadJSON(t *testing.T, p string) *Case {
 	return &c
 }
 
+func mustReadFileTrim(t *testing.T, p string) string {
+	t.Helper()
+	b, err := os.ReadFile(p)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return strings.TrimSpace(string(b))
+}
+
 func TestLedgerV02(t *testing.T) {
 	type tc struct {
 		file string
@@ -30,7 +40,7 @@ func TestLedgerV02(t *testing.T) {
 		{"fail_ledger_seq_jump.json", 20},
 		{"fail_ledger_prev_hash_wrong.json", 20},
 		{"fail_ledger_negative_amount.json", 20},
-		{"fail_ledger_missing_evidence_ref.json", 10},
+		{"fail_ledger_missing_evidence_ref.json", 10}, // NOTE: keep expected code aligned with current validator
 	}
 
 	base := filepath.Join("..", "..", "testdata", "v0_2")
@@ -46,15 +56,18 @@ func TestLedgerV02(t *testing.T) {
 }
 
 func TestVerdictCoreV01_Golden1(t *testing.T) {
+	lock := mustReadFileTrim(t, filepath.Join("..", "..", "core_lock.sha256"))
+
 	// Minimal golden vector to lock canonical + proof_hash rule.
 	vc := &Case{
 		CaseID:  "C-20260222-001",
 		Action:  "verdict_core",
 		Profile: "core",
 		Payload: map[string]any{
-			"case_id": "C-20260222-001",
-			"profile": "ledger",
-			"action":  "ledger_append",
+			"core_lock_sha256": lock,
+			"case_id":          "C-20260222-001",
+			"profile":          "ledger",
+			"action":           "ledger_append",
 			"payload": map[string]any{
 				"ledger_seq":        float64(42),
 				"prev_hash":         "abc123",
