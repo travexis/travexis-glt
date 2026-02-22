@@ -1,6 +1,6 @@
-# Travexis GLT
+# Travexis TGL
 
-GLT (Gate Language Toolkit) is a deterministic validation standard.
+TGL (Travexis Gate Language ) is a deterministic validation standard.
 
 It defines:
 
@@ -13,7 +13,7 @@ It defines:
 
 ## Exit Code Contract (v0.1.0)
 
-GLT defines exactly three exit codes:
+TGL defines exactly three exit codes:
 
 - `0`  → PASS
 - `10` → FAIL

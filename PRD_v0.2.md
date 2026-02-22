@@ -1,4 +1,4 @@
-# GLT v0.2 — Minimal PRD (Locked)
+# TGL v0.2 — Minimal PRD (Locked)
 
 Goal: Add optional validation profiles without breaking v0.1 core.
 

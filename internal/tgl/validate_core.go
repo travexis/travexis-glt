@@ -1,4 +1,4 @@
-package glt
+package tgl
 
 func validateCore(action string, payload map[string]any) (int, string) {
 	// v0.1 core semantics locked

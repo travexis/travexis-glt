@@ -1,6 +1,6 @@
-# GLT Specification (v0.1)
+# TGL Specification (v0.1)
 
-GLT (Gate Language for Travexis) is a deterministic validation protocol.
+TGL (Travexis Gate Language) is a deterministic validation protocol.
 
 The validator MUST return a single exit code.
 Exit code is the only authoritative result.

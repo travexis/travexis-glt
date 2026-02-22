@@ -1,3 +1,3 @@
-module github.com/travexis/travexis-glt
+module github.com/travexis/travexis-tgl
 
 go 1.25.0

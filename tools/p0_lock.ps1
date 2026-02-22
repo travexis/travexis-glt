@@ -16,14 +16,14 @@ try {
   if (-not (Test-Path ".\out")) { New-Item -ItemType Directory -Force -Path ".\out" | Out-Null }
 
   Ok "build: glt + runner"
-  & go build -o .\out\glt.exe .\cmd\glt
+  & go build -o .\out\tgl.exe .\cmd\tgl
   if ($LASTEXITCODE -ne 0) { Fail "go build glt failed (exit=$LASTEXITCODE)" }
 
   & go build -o .\out\runner.exe .\runner_go
   if ($LASTEXITCODE -ne 0) { Fail "go build runner failed (exit=$LASTEXITCODE)" }
 
   Ok "run: conformance suite"
-  & .\out\runner.exe .\out\glt.exe .\tests 2>&1 | Tee-Object -FilePath .\out\runner_last.txt
+  & .\out\runner.exe .\out\tgl.exe .\tests 2>&1 | Tee-Object -FilePath .\out\runner_last.txt
   if ($LASTEXITCODE -ne 0) { Fail "runner suite failed. See .\out\runner_last.txt" }
   Ok "conformance: PASS"
 

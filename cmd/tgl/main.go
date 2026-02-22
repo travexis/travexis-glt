@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/travexis/travexis-glt/internal/glt"
+	"github.com/travexis/travexis-tgl/internal/tgl"
 )
 
 const (
@@ -72,13 +72,13 @@ func main() {
 	}
 
 	// --- Now parse into typed Case and validate ---
-	var c glt.Case
+	var c tgl.Case
 	if err := json.Unmarshal(data, &c); err != nil {
 		fmt.Fprintln(os.Stderr, "[FAIL] bad json:", err)
 		os.Exit(EXIT_INVALID)
 	}
 
-	exit, msg := glt.ValidateCase(&c)
+	exit, msg := tgl.ValidateCase(&c)
 
 	// Upgrade specific validation messages to USAGE=20 (blocked usage contract)
 	// (kept narrow to avoid touching real INVALID cases)

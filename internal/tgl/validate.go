@@ -1,4 +1,4 @@
-package glt
+package tgl
 
 type Case struct {
 	CaseID  any `json:"case_id"`

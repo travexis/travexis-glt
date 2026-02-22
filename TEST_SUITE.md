@@ -1,6 +1,6 @@
-# GLT Test Suite (v0.1.x)
+# TGL Test Suite (v0.1.x)
 
-This repository provides a deterministic test suite for GLT.](image.png)
+This repository provides a deterministic test suite for TGL.](image.png)
 All tests live under:
 
 Each test case is a directory. The directory name is the test id.
