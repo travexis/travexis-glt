@@ -1,6 +1,7 @@
 # Locked line endings: normalize to LF in repo, prevent CRLF churn
 * text=auto eol=lf
 
+# Explicitly set line endings to LF for specific file types
 *.go   text eol=lf
 *.md   text eol=lf
 *.yml  text eol=lf
