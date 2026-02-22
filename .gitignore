@@ -13,3 +13,7 @@ out/runner_last.txt
 
 /runner.exe
 /validator.exe
+
+/out/
+/*.zip
+SNAPSHOT_*.txt
