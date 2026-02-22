@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  glt:
+  tgl:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,11 +23,11 @@ jobs:
       - name: Go test
         run: go test ./...
 
-      - name: Build validator (glt)
-        run: go build -o validator ./cmd/glt
+      - name: Build validator (tgl)
+        run: go build -o validator ./cmd/tgl
 
       - name: Build runner
         run: go build -o runner ./runner_go
 
       - name: Run test suite
-        run: ./runner ./validator ./tests
+        run: ./runner ./validator ./test_cases
