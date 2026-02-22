@@ -1,11 +1,76 @@
 # NAMING LOCK (TGL v1.0)
+Naming Lock (v1.0.x)
 
-This repository is the reference implementation + corpus for:
+This repository is the reference implementation and corpus for:
 
-- Public protocol name: **TGL**
-- Internal machine name: **tgl** (lowercase only)
+Public protocol name: TGL
+Internal machine name: tgl (lowercase only)
 
-Hard rules (non-negotiable):
-1) The string `glt` MUST NOT appear in any path, package name, module path, import path, schema id, CLI flag, env var, or docs.
-2) No mixed-case machine names. Only `tgl`.
-3) Any future compatibility aliases (if ever) must live in an explicit, isolated shim folder and MUST NOT affect core_lock or proof_hash inputs.
+Current stable line: v1.0.x
+
+Constitutional Naming Rules (Non-Negotiable)
+
+The string glt MUST NOT appear anywhere in:
+
+File paths
+
+Folder names
+
+Package names
+
+Module paths
+
+Import paths
+
+Schema identifiers
+
+CLI flags
+
+Environment variables
+
+Documentation
+
+Test fixtures
+
+Machine identifier MUST be lowercase only:
+
+Allowed:
+
+tgl
+
+Disallowed:
+
+glt
+
+Tgl
+
+TGL (as machine identifier)
+
+Public display name MAY use uppercase:
+
+Public protocol name: TGL
+Machine identifier: tgl
+
+Compatibility Aliases (Strict Isolation Rule)
+
+If a compatibility alias is ever introduced:
+
+It MUST live inside an isolated shim directory.
+
+It MUST NOT affect:
+
+CanonicalizeV01 inputs
+
+core_lock enforcement
+
+proof_hash computation
+
+Exit code semantics
+
+Deterministic behavior
+
+Constitutional Status (v1.0.x)
+
+Naming rules are part of the v1.0.x compliance boundary.
+
+If violated, the implementation is NOT v1.0.x compliant.

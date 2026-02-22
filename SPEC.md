@@ -192,12 +192,12 @@ For action verdict_core:
 proof_hash MUST equal:
 
 "sha256:" + sha256(
-CanonicalizeV01({
-case_id,
-profile,
-action,
-payload
-})
+    CanonicalizeV01({
+        case_id,
+        profile,
+        action,
+        payload
+    })
 )
 
 Canonicalization algorithm = CanonicalizeV01
