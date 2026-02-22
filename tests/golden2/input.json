@@ -1,0 +1,15 @@
+{
+  "case_id": "C-20260221-001",
+  "action": "ledger_append",
+  "profile": "ledger",
+  "payload": {
+    "ledger_head": { "ledger_seq": 41, "line_hash": "abc123" },
+    "ledger_seq": 42,
+    "prev_hash": "abc123",
+    "entry_type": "append",
+    "amount_usd": 1200.5,
+    "cfu_impact": 54.4,
+    "responsible_party": "operator",
+    "evidence_ref": "PP-20260219-173252Z"
+  }
+}
