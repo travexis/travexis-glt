@@ -1,4 +1,4 @@
-# TGL Specification (v0.1)
+TGL Specification (v1.0.x)
 
 TGL (Travexis Gate Language) is a deterministic validation protocol.
 
@@ -7,34 +7,35 @@ Exit code is the only authoritative result.
 
 Stdout is informational only.
 
----
-
-## 1. Input Requirements
+1. Input Requirements
 
 Input MUST be a readable JSON file.
 
 If:
-- no input argument is provided
-- file cannot be read
 
-→ exit `20` (BLOCKED)
+no input argument is provided
+
+file cannot be read
+
+→ exit 20 (BLOCKED)
 
 If:
-- JSON is invalid
 
-→ exit `10` (FAIL)
+JSON is invalid
 
----
+→ exit 10 (FAIL)
 
-## 2. Required Fields
+2. Required Fields
 
-A valid GLT input MUST contain:
+A valid TGL input MUST contain:
 
-- `case_id` (string)
-- `action` (string)
-- `payload` (object)
+case_id (string)
 
-### 2.1 case_id
+action (string)
+
+payload (object)
+
+2.1 case_id
 
 Format MUST be:
 
@@ -45,118 +46,234 @@ Example:
 C-20260221-001
 
 Rules:
-- Total length = 14
-- Must start with `C-`
-- Character at position 10 must be `-`
-- All other specified positions must be numeric
 
-If format invalid → exit `10` (FAIL)
+Must start with C-
 
-If missing → exit `20` (BLOCKED)
+Date portion must be numeric
 
----
+Sequence must be numeric
 
-### 2.2 action
+If format invalid → exit 10 (FAIL)
+If missing → exit 20 (BLOCKED)
 
-- Must exist
-- Must be a non-empty string
-- MUST match whitelist
+2.2 action
 
-v0.1 whitelist:
+Must exist
 
-validate
+Must be a non-empty string
 
-If missing → exit `20` (BLOCKED)
+If missing → exit 20 (BLOCKED)
+If wrong type → exit 10 (FAIL)
 
-If wrong type or unknown action → exit `10` (FAIL)
+Allowed actions are profile-dependent.
 
----
+2.3 payload
 
-### 2.3 payload
+Must exist
 
-- Must exist
-- Must not be null
-- Must be a JSON object
+Must not be null
 
-If missing → exit `20` (BLOCKED)
+Must be a JSON object
 
-If wrong type → exit `10` (FAIL)
+If missing → exit 20 (BLOCKED)
+If wrong type → exit 10 (FAIL)
 
----
+3. Exit Code Semantics (SSOT)
 
-## 3. Exit Code Semantics
+Exit codes are fixed and MUST NOT be overloaded:
 
-GLT exit codes have fixed meanings:
+0 = PASS
 
-- `20` (BLOCKED): structural preconditions are not met.  
-  Missing required fields, unreadable input file, empty required string.
+10 = FAIL
 
-- `10` (FAIL): input is readable but invalid by GLT rules.  
-  Invalid JSON, wrong field type, format mismatch, unknown action.
+20 = BLOCKED
 
-- `0` (PASS): input is valid under GLT rules.
+BLOCKED (20)
 
-Exit code MUST NOT be overloaded.
+Structural or deterministic policy violation:
 
----
+Missing required file
 
-## 4. Determinism
+Chain mismatch
+
+Hash mismatch
+
+Core lock mismatch
+
+Negative forbidden values
+
+Deterministic invariant violation
+
+FAIL (10)
+
+Readable but invalid:
+
+Invalid format
+
+Unknown profile
+
+Unknown action
+
+Wrong type
+
+Missing required field inside valid structure
+
+4. Determinism
 
 Given the same input file,
-a conforming GLT validator MUST always return the same exit code.
+a conforming TGL validator MUST always return the same exit code.
 
 No network calls.
 No time-dependent logic.
 No randomness.
 
-GLT validation MUST be deterministic.
+Validation MUST be deterministic.
 
-## Profiles (v0.2)
+Profiles (v0.2+)
 
-`profile` is optional. If missing or empty, default is `core`.
+profile is optional.
+If missing or empty, default = core.
 
 Allowed profiles:
-- `core`
-- `ledger`
 
-If `profile` is present but not allowed → exit **10 (FAIL)**.
+core
 
-### Exit Codes (SSOT)
-- `0` = PASS
-- `10` = FAIL (invalid input / schema / unknown profile / disallowed action)
-- `20` = BLOCKED (deterministic policy violation)
+ledger
 
-## Core Profile (core)
+If profile is present but not allowed → exit 10 (FAIL).
 
-Allowed `action`:
-- `validate`
+Core Profile (v1.0.x)
 
-Required top-level fields:
-- `case_id` (string) must match `C-YYYYMMDD-###`
-- `action` (string)
-- `payload` (object)
+Allowed actions:
 
-## Ledger Profile (ledger) — v0.1 Rules (introduced in v0.2)
+validate
 
-Ledger profile is for settlement / credit / billing validations.
+verdict_core
 
-Allowed `action`:
-- `ledger_append`
+Core Action: validate
 
-Required fields inside `payload`:
-- `ledger_seq` (int)
-- `prev_hash` (string)
-- `entry_type` (enum): `append` | `correction` | `snapshot`
-- `amount_usd` (number, must be >= 0) → negative is **BLOCKED (20)**
-- `cfu_impact` (number, must be >= 0) → negative is **BLOCKED (20)**
-- `responsible_party` (enum): `issuer` | `operator` | `holder`
-- `evidence_ref` (string)
+Basic structural validation only.
 
-Deterministic chain context (required):
-- `ledger_head` (object) with:
-  - `ledger_seq` (int)
-  - `line_hash` (string)
+Core Action: verdict_core (Constitutional Invariant)
 
-Chain constraints (hard BLOCKED):
-- `ledger_seq` must equal `ledger_head.ledger_seq + 1` → **exit 20**
-- `prev_hash` must equal `ledger_head.line_hash` → **exit 20**
+This action defines the adjudication boundary of TGL.
+
+Required fields inside payload:
+
+core_lock_sha256 (string)
+
+case_id (string)
+
+profile (string)
+
+action (string)
+
+payload (object)
+
+proof_hash (string)
+
+5. Core Lock Enforcement (Locked)
+
+core_lock_sha256 MUST exist
+→ missing = 10 (FAIL)
+
+core_lock_sha256 MUST equal the content of repository root file:
+
+core_lock.sha256
+
+→ mismatch = 20 (BLOCKED)
+
+This prevents unauthorized rule modification.
+
+6. Proof Hash Enforcement (Locked)
+
+For action verdict_core:
+
+proof_hash MUST equal:
+
+"sha256:" + sha256(
+CanonicalizeV01({
+case_id,
+profile,
+action,
+payload
+})
+)
+
+Canonicalization algorithm = CanonicalizeV01
+
+Requirements:
+
+Deterministic UTF-8 encoding
+
+Stable key sorting
+
+No whitespace ambiguity
+
+Rules:
+
+Missing proof_hash → 10 (FAIL)
+
+Mismatch → 20 (BLOCKED)
+
+This establishes a cryptographic adjudication boundary.
+
+Ledger Profile (v0.2)
+
+Allowed action:
+
+ledger_append
+
+Ledger Payload Requirements
+
+Inside payload:
+
+ledger_seq (int)
+
+prev_hash (string)
+
+entry_type (enum): append | correction | snapshot
+
+amount_usd (number, must be >= 0)
+
+cfu_impact (number, must be >= 0)
+
+responsible_party (enum): issuer | operator | holder
+
+evidence_ref (string)
+
+ledger_head (object):
+
+ledger_seq (int)
+
+line_hash (string)
+
+Ledger Deterministic Constraints
+
+Hard BLOCKED (20):
+
+ledger_seq != ledger_head.ledger_seq + 1
+
+prev_hash != ledger_head.line_hash
+
+amount_usd < 0
+
+cfu_impact < 0
+
+Missing required field → 10 (FAIL)
+
+Constitutional Status (v1.0.x)
+
+The following are constitutional invariants:
+
+Exit code SSOT
+
+Deterministic validation
+
+CanonicalizeV01 algorithm
+
+core_lock enforcement
+
+proof_hash enforcement
+
+Any implementation claiming v1.0.x compliance MUST enforce these invariants.
