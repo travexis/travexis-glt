@@ -30,4 +30,4 @@ jobs:
         run: go build -o runner ./runner_go
 
       - name: Run test suite
-        run: ./runner ./validator ./test_cases
+        run: ./runner ./validator ./tests
