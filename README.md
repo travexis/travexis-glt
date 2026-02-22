@@ -42,7 +42,7 @@ Starting at **v1.0.0**, TGL introduces a constitutional adjudication boundary.
 
 - **Golden Vector Test Coverage** for `core_lock` and `proof_hash` enforcement.
 - Ensured that all files have consistent **LF line endings** to prevent cross-platform issues.
-- Updated **`input.txt`** and **`expected_exit.txt`** files for golden2/3 to match expected test outcomes.
+- Updated **`input.txt`** and **`expected_exit.txt`** files for **golden2/3** to match expected test outcomes.
 
 ---
 
