@@ -67,11 +67,32 @@ func validateCore(action string, payload map[string]any) (int, string) {
 }
 
 func readCoreLock() (string, error) {
-	// validate_core.go lives in internal/tgl, so repo root is ../..
-	p := filepath.Join("..", "..", "core_lock.sha256")
-	b, err := os.ReadFile(p)
-	if err != nil {
-		return "", err
+	// Strategy:
+	// 1) Try CWD (repo root in CI runner).
+	// 2) Try source-relative fallback (go test from package directories).
+	// 3) Try executable directory (when invoked from elsewhere).
+	candidates := []string{
+		"core_lock.sha256",
+		filepath.Join("..", "..", "core_lock.sha256"),
 	}
-	return strings.TrimSpace(string(b)), nil
+
+	if exe, err := os.Executable(); err == nil && exe != "" {
+		exeDir := filepath.Dir(exe)
+		candidates = append(candidates, filepath.Join(exeDir, "core_lock.sha256"))
+	}
+
+	var lastErr error
+	for _, p := range candidates {
+		b, err := os.ReadFile(p)
+		if err != nil {
+			lastErr = err
+			continue
+		}
+		return strings.TrimSpace(string(b)), nil
+	}
+
+	if lastErr == nil {
+		lastErr = os.ErrNotExist
+	}
+	return "", lastErr
 }

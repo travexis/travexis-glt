@@ -1,5 +1,25 @@
 {
-   "case_id": "C-20260221-001",
-  "action": "validate",
-  "payload": {}
+  "case_id": "C-20260221-001",
+  "profile": "core",
+  "action": "verdict_core",
+  "payload": {
+    "core_lock_sha256": "fa856ab4cfaa216f9df3e6061c7f59b1a4fe283b",
+    "case_id": "C-20260222-001",
+    "profile": "ledger",
+    "action": "ledger_append",
+    "payload": {
+      "ledger_seq": 42,
+      "prev_hash": "abc123",
+      "entry_type": "append",
+      "amount_usd": 10,
+      "cfu_impact": 1,
+      "responsible_party": "operator",
+      "evidence_ref": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "ledger_head": {
+        "ledger_seq": 41,
+        "line_hash": "abc123"
+      }
+    },
+    "proof_hash": "sha256:6143957e76782d8c4ea50212de287b7f431da1cbcf506c3a65c8e367ab5eeb24"
+  }
 }
