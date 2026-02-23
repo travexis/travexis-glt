@@ -2,7 +2,7 @@
 
 This repo uses semantic versioning for tags: vMAJOR.MINOR.PATCH.
 
-### Current stable line: v0.2.x
+### Current stable line: v1.0.x
 
 ### What changes the version:
 

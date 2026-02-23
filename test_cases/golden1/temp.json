@@ -1,0 +1,12 @@
+{
+  "case_id": "C-20260221-001",
+  "action": "verdict_core",
+  "profile": "core",
+  "payload": {
+    "core_lock_sha256": "fa856ab4cfaa216f9df3e6061c7f59b1a4fe283b",
+    "case_id": "C-20260221-001",
+    "profile": "core",
+    "action": "verdict_core",
+    "payload": {}
+  }
+}

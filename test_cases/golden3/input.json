@@ -1,0 +1,7 @@
+{
+  "case_id": "C-20260221-003",
+  "action": "verdict_core",
+  "profile": "core",
+  "proof_hash": "sha256:abc123",
+  "payload": {}
+}

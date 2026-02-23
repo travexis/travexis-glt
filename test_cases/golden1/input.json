@@ -1,0 +1,13 @@
+{
+  "payload": {
+    "profile": "core",
+    "action": "verdict_core",
+    "proof_hash": "sha256:52e8b2c8c5c571486b97b8726ad4aa89abb42fec89f15703992a11e911b3bb7a",
+    "core_lock_sha256": "fa856ab4cfaa216f9df3e6061c7f59b1a4fe283b",
+    "payload": {},
+    "case_id": "C-20260221-001"
+  },
+  "profile": "core",
+  "case_id": "C-20260221-001",
+  "action": "verdict_core"
+}

@@ -11,5 +11,7 @@
     "cfu_impact": 54.4,
     "responsible_party": "operator",
     "evidence_ref": "PP-20260219-173252Z"
-  }
+  },
+  "core_lock_sha256": "1B86AC43B7C4E3BD45D59C749619D521160B5537B4C9D7599A6A1F72793AC2...",  // 已去掉SHA256标签
+  "proof_hash": "48edba2497eeec3f23820201562a18990fd49b63a96ec94febabcb11f381e372"   // 已确认proof_hash正确
 }

@@ -1,0 +1,9 @@
+{
+  "case_id": "C-20260221-002",
+  "action": "verdict_core",
+  "profile": "core",
+  "proof_hash": "sha256:abc123",
+  "payload": {
+    "core_lock_sha256": "WRONG_HASH_DOES_NOT_MATCH"
+  }
+}

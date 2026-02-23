@@ -1,120 +1,114 @@
-Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning for tags.
 
-v1.0.3 — 2026-02-22
-Added
+## [v1.0.3] — 2026-02-23
 
-Constitutional enforcement for verdict_core
+### Added
+- Golden vector test cases for v1.0.x compliance
+  - `golden1`: Complete verdict_core test with valid proof_hash (exit=0)
+  - `golden2`: core_lock_sha256 mismatch test (exit=20 BLOCKED)
+  - `golden3`: Missing core_lock_sha256 test (exit=10 FAIL)
+- Test runner support for directory-based test cases (`test_cases/`)
+- Local test execution guide for Windows PowerShell
 
-core_lock_sha256 enforcement against repository root core_lock.sha256
+### Fixed
+- proof_hash field location corrected (now in payload object per spec)
+- Test case structure aligned with TGL Specification v1.0.x
+- Exit code handling for core_lock enforcement (10 vs 20)
 
-proof_hash enforcement using CanonicalizeV01
+### Changed
+- Test directory structure: `tests/` → `test_cases/` for golden vectors
 
-Golden vector test coverage for:
+---
 
-core_lock mismatch
+## v1.0.3 — 2026-02-22
 
-missing core_lock
+### Added
+- Constitutional enforcement for verdict_core
+- core_lock_sha256 enforcement against repository root core_lock.sha256
+- proof_hash enforcement using CanonicalizeV01
+- Golden vector test coverage for:
+  - core_lock mismatch
+  - missing core_lock
+  - proof_hash mismatch
+  - missing proof_hash
 
-proof_hash mismatch
+### Locked
+- Exit code SSOT (0 = PASS, 10 = FAIL, 20 = BLOCKED)
+- Deterministic validation requirement
+- CanonicalizeV01 algorithm invariance
+- core_lock enforcement boundary
+- proof_hash enforcement boundary
 
-missing proof_hash
+### Notes
+- v1.0.x establishes the adjudication layer.
+- Tags from v1.0.0 onward are immutable.
 
-Locked
+---
 
-Exit code SSOT (0 = PASS, 10 = FAIL, 20 = BLOCKED)
+## v1.0.2 — 2026-02-22
 
-Deterministic validation requirement
+### Fixed
+- Clean build state for core profile wiring
+- Resolved validateCore signature mismatch
+- Ensured go test ./... passes deterministically
 
-CanonicalizeV01 algorithm invariance
+---
 
-core_lock enforcement boundary
+## v1.0.1 — 2026-02-22
 
-proof_hash enforcement boundary
+### Changed
+- Stabilized core + ledger profile routing
+- Hardened deterministic exit behavior
 
-Notes
+---
 
-v1.0.x establishes the adjudication layer.
+## v1.0.0 — 2026-02-22
 
-Tags from v1.0.0 onward are immutable.
+### Added
+- verdict_core action (constitutional boundary)
+- profile mechanism (default core; allowed: core|ledger)
+- Deterministic exit codes (SSOT):
+  - 0 = PASS
+  - 10 = FAIL
+  - 20 = BLOCKED
 
-v1.0.2 — 2026-02-22
-Fixed
+### Notes
+- First immutable release line.
+- Tags from this version forward MUST NOT be moved.
 
-Clean build state for core profile wiring
+---
 
-Resolved validateCore signature mismatch
+## v0.2.0 — 2026-02-21
 
-Ensured go test ./... passes deterministically
+### Added
+- ledger profile v0.1 rules and ledger_append action
+- Ledger test cases under testdata/v0_2
+- Automated validation tests for ledger rules
 
-v1.0.1 — 2026-02-22
-Changed
+### Changed
+- CLI runner supports -in <case.json>
+- SPEC updated to document profile and ledger rules
 
-Stabilized core + ledger profile routing
+---
 
-Hardened deterministic exit behavior
+## v0.1.3 — 2026-02-21
 
-v1.0.0 — 2026-02-22
-Added
+### Added
+- Baseline core validation rules:
+  - JSON must be readable
+  - case_id, action, payload required
+  - case_id format C-YYYYMMDD-###
+  - payload must be an object
+  - action whitelist for core: validate
+- Deterministic exit code contract:
+  - 0 = PASS
+  - 10 = FAIL
+  - 20 = BLOCKED
 
-verdict_core action (constitutional boundary)
-
-profile mechanism (default core; allowed: core|ledger)
-
-Deterministic exit codes (SSOT):
-0 = PASS
-10 = FAIL
-20 = BLOCKED
-
-Notes
-
-First immutable release line.
-
-Tags from this version forward MUST NOT be moved.
-
-v0.2.0 — 2026-02-21
-Added
-
-ledger profile v0.1 rules and ledger_append action
-
-Ledger test cases under testdata/v0_2
-
-Automated validation tests for ledger rules
-
-Changed
-
-CLI runner supports -in <case.json>
-
-SPEC updated to document profile and ledger rules
-
-v0.1.3 — 2026-02-21
-Added
-
-Baseline core validation rules:
-
-JSON must be readable
-
-case_id, action, payload required
-
-case_id format C-YYYYMMDD-###
-
-payload must be an object
-
-action whitelist for core: validate
-
-Deterministic exit code contract:
-
-0 = PASS
-
-10 = FAIL
-
-20 = BLOCKED
-
-Notes
-
-Last pre-profile release.
-
-v0.2.0 introduced profile expansion.
+### Notes
+- Last pre-profile release.
+- v0.2.0 introduced profile expansion.
