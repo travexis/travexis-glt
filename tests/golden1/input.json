@@ -1,0 +1,8 @@
+{
+  "case_id": "C-20260223-001",
+  "action": "verdict_core",
+  "payload": {
+    "core_lock_sha256": "829a8041ceb730a52dd54ec4336094210e195666504b595bf428cc52800239e0",
+    "proof_hash": "829a8041ceb730a52dd54ec4336094210e195666504b595bf428cc52800239e0"
+  }
+}
